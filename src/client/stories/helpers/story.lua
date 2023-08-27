@@ -2,7 +2,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local vide = require(ReplicatedStorage.modules.vide)
 
-local function story(component: () -> Instance | { Instance })
+local function story(component: () -> unknown)
 	return function(target: Instance)
 		local instance = vide.create "Frame" {
 			BackgroundTransparency = 1,

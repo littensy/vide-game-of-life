@@ -1,6 +1,6 @@
 local types = require(script.Parent.types)
 
-local NEIGHBORS: { Vector3 } = {
+local NEIGHBORS = {
 	Vector3.new(1, 0, 0),
 	Vector3.new(-1, 0, 0),
 	Vector3.new(0, 1, 0),
@@ -14,8 +14,8 @@ local NEIGHBORS: { Vector3 } = {
 local function solve(state: types.BoardState): types.BoardState
 	debug.profilebegin("Solver")
 
-	local nextState: types.BoardState = table.clone(state)
-	local emptyCellsChecked: types.BoardState = {}
+	local nextState = table.clone(state)
+	local emptyCellsChecked = {}
 
 	local function turnAlive(cell: Vector3)
 		if emptyCellsChecked[cell] then
