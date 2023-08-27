@@ -1,4 +1,4 @@
-local ReplicatedStorage = game:GetService "ReplicatedStorage"
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local vide = require(ReplicatedStorage.modules.vide)
 local setInterval = require(ReplicatedStorage.shared.setInterval)
