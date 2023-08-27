@@ -17,6 +17,9 @@ jobs:
       # - name: Install packages
       #   run: wally install
 
+      - name: Install submodules
+        run: git submodule update --init --recursive
+
       - name: Build model
         run: rojo build -o place.rbxl
 
