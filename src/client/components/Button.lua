@@ -27,7 +27,7 @@ local function Button(props: {
 	end, 0.2)
 
 	local buttonOffset = vide.spring(function()
-		return if pressed() then UDim2.new(0, 0, 0, rem.use(1)) else UDim2.new()
+		return if pressed() then UDim2.new(0, 0, 0, rem.use(0.5)) else UDim2.new()
 	end, 0.2)
 
 	return vide.create "TextButton" {
