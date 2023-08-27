@@ -17,7 +17,7 @@ local function solve(state: types.BoardState): types.BoardState
 	local nextState = table.clone(state)
 	local emptyCellsChecked = {}
 
-	local function checkEmptyCell(cell: Vector3)
+	local function checkEmptyCell(cell: types.BoardCell)
 		if emptyCellsChecked[cell] then
 			return
 		end
