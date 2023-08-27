@@ -1,3 +1,6 @@
+-- https://github.com/TinySquid/game-of-life/blob/master/public/js/Presets/Fireship.js
+
+return [[
     x  x
     x  x
    x    x
@@ -19,3 +22,4 @@ xx        xx
  xxxxxxxxxx
   xxxxxxxx
     xxxx
+]]
