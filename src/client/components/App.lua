@@ -3,13 +3,12 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local vide = require(ReplicatedStorage.modules.vide)
 local Game = require(script.Parent.Game)
 
-local function App(props: { target: Instance? })
+local function App()
 	return vide.create "ScreenGui" {
 		Name = "App",
-		Parent = props.target,
 		ResetOnSpawn = false,
 		IgnoreGuiInset = true,
-		Game {},
+		Game(),
 	}
 end
 

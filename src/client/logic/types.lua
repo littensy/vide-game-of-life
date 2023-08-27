@@ -1,5 +1,5 @@
 export type BoardState = {
-	[BoardCell]: boolean,
+	[BoardCell]: boolean?,
 }
 
 export type BoardCell = Vector3

@@ -1,7 +1,9 @@
 local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
+local vide = require(ReplicatedStorage.modules.vide)
 local App = require(script.components.App)
 
-App {
-	target = Players.LocalPlayer:WaitForChild("PlayerGui"),
+vide.apply(Players.LocalPlayer:WaitForChild("PlayerGui")) {
+	App(),
 }

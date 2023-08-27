@@ -2,9 +2,9 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local vide = require(ReplicatedStorage.modules.vide)
 
-local function Cleanup(callback: () -> ())
+local function Cleanup(onDestroy: () -> ())
 	return vide.create "Folder" {
-		Destroying = callback,
+		Destroying = onDestroy,
 	}
 end
 

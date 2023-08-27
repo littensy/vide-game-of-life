@@ -1,11 +1,13 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local vide = require(ReplicatedStorage.modules.vide)
-local board = require(ReplicatedStorage.client.board)
+local logic = require(ReplicatedStorage.client.logic)
 
 local CELL_SIZE = 5
 
-local function GameBoard(props: { state: vide.Source<board.BoardState> })
+local function GameBoard(props: {
+	state: vide.Source<logic.BoardState>,
+})
 	return vide.indexes(props.state, function(_, position)
 		return vide.create "Frame" {
 			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
