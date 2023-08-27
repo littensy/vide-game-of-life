@@ -8,19 +8,19 @@ local BASE_HEIGHT = 680
 
 local rem = vide.source(BASE_REM)
 
-local function update(size: Vector2)
-	local proportional = size.Y / BASE_HEIGHT * BASE_REM
-	rem(math.round(proportional / 2) * 2)
-end
-
-local function connect()
+local function RemConnector()
 	local camera = workspace.CurrentCamera
 
+	local function update()
+		local proportional = camera.ViewportSize.Y / BASE_HEIGHT * BASE_REM
+		rem(math.round(proportional / 2) * 2)
+	end
+
 	local connection = camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
-		update(camera.ViewportSize)
+		update()
 	end)
 
-	update(camera.ViewportSize)
+	update()
 
 	return Cleanup(function()
 		connection:Disconnect()
@@ -50,9 +50,9 @@ local function udim(xScale: number, xOffset: number)
 end
 
 return {
+	RemConnector = RemConnector,
 	units = units,
 	value = value,
 	udim2 = udim2,
 	udim = udim,
-	connect = connect,
 }

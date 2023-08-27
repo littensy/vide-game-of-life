@@ -4,7 +4,7 @@ local rem = require(ReplicatedStorage.client.composables.rem)
 
 local function Connector()
 	return {
-		rem.connect(),
+		rem.RemConnector(),
 	}
 end
 
