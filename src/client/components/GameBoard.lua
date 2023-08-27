@@ -2,8 +2,9 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local vide = require(ReplicatedStorage.modules.vide)
 local logic = require(ReplicatedStorage.client.logic)
+local rem = require(ReplicatedStorage.client.composables.rem)
 
-local CELL_SIZE = 5
+local CELL_SIZE = 0.5
 
 local function GameBoard(props: {
 	state: vide.Source<logic.BoardState>,
@@ -25,14 +26,14 @@ local function GameBoard(props: {
 	return vide.indexes(cells, function(value)
 		local function position()
 			local cell = value()
-			return UDim2.new(0.5, cell.X * CELL_SIZE, 0.5, cell.Y * CELL_SIZE)
+			return UDim2.new(0.5, rem.units(cell.X * CELL_SIZE), 0.5, rem.units(cell.Y * CELL_SIZE))
 		end
 
 		return vide.create "Frame" {
 			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 			BorderSizePixel = 0,
 			AnchorPoint = Vector2.new(0.5, 0.5),
-			Size = UDim2.new(0, CELL_SIZE, 0, CELL_SIZE),
+			Size = rem.udim2(0, CELL_SIZE, 0, CELL_SIZE),
 			Position = position,
 		}
 	end)

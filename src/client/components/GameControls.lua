@@ -1,10 +1,11 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local vide = require(ReplicatedStorage.modules.vide)
+local rem = require(ReplicatedStorage.client.composables.rem)
 local palette = require(ReplicatedStorage.client.utils.palette)
 local Button = require(script.Parent.Button)
 
-local BUTTON_SIZE = UDim2.new(0, 96, 0, 48)
+local BUTTON_SIZE = rem.udim2(0, 6, 0, 3)
 
 local function GameControls(props: {
 	onPause: vide.Source<boolean>,
@@ -21,13 +22,14 @@ local function GameControls(props: {
 	props.onPause(true)
 
 	return vide.create "Frame" {
-		Position = UDim2.new(0.5, 0, 1, -36),
+		Position = rem.udim2(0.5, 0, 1, -4),
+		ZIndex = 2,
 
 		vide.create "UIListLayout" {
 			FillDirection = Enum.FillDirection.Horizontal,
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
-			Padding = UDim.new(0, 10),
+			Padding = rem.udim(0, 1),
 		},
 
 		Button {

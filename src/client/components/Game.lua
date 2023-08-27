@@ -10,7 +10,6 @@ local GameBoard = require(script.Parent.GameBoard)
 local GameControls = require(script.Parent.GameControls)
 
 local function Game(): { any }
-	-- local state = vide.source(logic.generate())
 	local state = vide.source(presets.fireship)
 	local paused = vide.source(false)
 

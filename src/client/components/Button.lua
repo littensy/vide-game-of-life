@@ -1,6 +1,7 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local vide = require(ReplicatedStorage.modules.vide)
+local rem = require(ReplicatedStorage.client.composables.rem)
 local fonts = require(ReplicatedStorage.client.utils.fonts)
 local palette = require(ReplicatedStorage.client.utils.palette)
 local resolve = require(ReplicatedStorage.client.utils.resolve)
@@ -60,14 +61,14 @@ local function Button(props: {
 			FontFace = props.font or fonts.inter.medium,
 			Text = props.text,
 			TextColor3 = props.textColor or palette.white,
-			TextSize = props.textSize or 16,
+			TextSize = props.textSize or rem.value(1),
 			BackgroundColor3 = props.backgroundColor or palette.blue,
 			BorderSizePixel = 0,
 			Size = UDim2.new(1, 0, 1, 0),
 			Position = buttonOffset,
 
 			vide.create "UICorner" {
-				CornerRadius = UDim.new(0, 8),
+				CornerRadius = rem.udim(0, 0.5),
 			},
 		},
 
@@ -80,7 +81,7 @@ local function Button(props: {
 			Position = buttonOffset,
 
 			vide.create "UICorner" {
-				CornerRadius = UDim.new(0, 8),
+				CornerRadius = rem.udim(0, 0.5),
 			},
 		},
 	}
