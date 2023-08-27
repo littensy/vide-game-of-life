@@ -47,10 +47,6 @@ local function solve(state: types.BoardState): types.BoardState
 		for _, neighbor in NEIGHBORS do
 			if state[cell + neighbor] then
 				aliveNeighbors += 1
-
-				if aliveNeighbors > 3 then
-					break
-				end
 			else
 				turnAlive(cell + neighbor)
 			end
