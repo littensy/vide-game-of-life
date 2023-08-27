@@ -27,7 +27,7 @@ local function Button(props: {
 	end, 0.2)
 
 	local buttonOffset = vide.spring(function()
-		return if pressed() then UDim2.new(0, 0, 0, 5) else UDim2.new()
+		return if pressed() then UDim2.new(0, 0, 0, rem.use(1)) else UDim2.new()
 	end, 0.2)
 
 	return vide.create "TextButton" {
@@ -61,7 +61,7 @@ local function Button(props: {
 			FontFace = props.font or fonts.inter.medium,
 			Text = props.text,
 			TextColor3 = props.textColor or palette.white,
-			TextSize = props.textSize or rem.value(1),
+			TextSize = props.textSize or rem.units(1),
 			BackgroundColor3 = props.backgroundColor or palette.blue,
 			BorderSizePixel = 0,
 			Size = UDim2.new(1, 0, 1, 0),

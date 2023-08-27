@@ -27,11 +27,11 @@ local function RemConnector()
 	end)
 end
 
-local function units(n: number)
+local function use(n: number)
 	return n * rem()
 end
 
-local function value(n: number)
+local function units(n: number)
 	return function()
 		return n * rem()
 	end
@@ -51,8 +51,8 @@ end
 
 return {
 	RemConnector = RemConnector,
+	use = use,
 	units = units,
-	value = value,
 	udim2 = udim2,
 	udim = udim,
 }

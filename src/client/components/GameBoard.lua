@@ -26,7 +26,7 @@ local function GameBoard(props: {
 	return vide.indexes(cells, function(value)
 		local function position()
 			local cell = value()
-			return UDim2.new(0.5, rem.units(cell.X * CELL_SIZE), 0.5, rem.units(cell.Y * CELL_SIZE))
+			return UDim2.new(0.5, rem.use(cell.X * CELL_SIZE), 0.5, rem.use(cell.Y * CELL_SIZE))
 		end
 
 		return vide.create "Frame" {
