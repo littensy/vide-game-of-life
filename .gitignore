@@ -1,0 +1,8 @@
+# Generated files
+/vide-game-of-life.rbxlx
+/*.rbxlx.lock
+/*.rbxl.lock
+sourcemap.json
+
+# Dependencies
+/Packages

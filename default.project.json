@@ -1,0 +1,22 @@
+{
+	"name": "vide-game-of-life",
+	"tree": {
+		"$className": "DataModel",
+		"ReplicatedStorage": {
+			"client": {
+				"$path": "src/client"
+			},
+			"shared": {
+				"$path": "src/shared"
+			},
+			"modules": {
+				"$path": "modules"
+			}
+		},
+		"ServerScriptService": {
+			"server": {
+				"$path": "src/server"
+			}
+		}
+	}
+}
