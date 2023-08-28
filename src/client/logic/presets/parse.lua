@@ -1,8 +1,6 @@
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local types = require(script.Parent.Parent.types)
 
-local logic = require(ReplicatedStorage.client.logic)
-
-local function align(state: logic.BoardState): logic.BoardState
+local function align(state: types.BoardState): types.BoardState
 	local nextState = {}
 	local bounds = Vector3.new()
 	local offset = Vector3.new()
@@ -19,7 +17,7 @@ local function align(state: logic.BoardState): logic.BoardState
 	return nextState
 end
 
-local function parse(grid: string): logic.BoardState
+local function parse(grid: string): types.BoardState
 	local state = {}
 	local cursor = Vector3.new()
 

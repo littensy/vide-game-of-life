@@ -4,9 +4,11 @@ local vide = require(ReplicatedStorage.modules.vide)
 
 type Component<T> = (T) -> any
 
-local function Dynamic<T>(props: {
+type Props<T> = {
 	component: vide.Source<Component<T>?>,
-} & T)
+} & T
+
+local function Dynamic<T>(props: Props<T>)
 	local container = vide.create "Folder" {}
 
 	local function update(component: Component<T>?)

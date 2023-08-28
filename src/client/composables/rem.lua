@@ -1,14 +1,13 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local vide = require(ReplicatedStorage.modules.vide)
-local Cleanup = require(ReplicatedStorage.client.control.Cleanup)
 
 local BASE_REM = 16
 local BASE_HEIGHT = 680
 
 local rem = vide.source(BASE_REM)
 
-local function RemConnector()
+local function useRem()
 	local camera = workspace.CurrentCamera
 
 	local function update()
@@ -22,9 +21,9 @@ local function RemConnector()
 
 	update()
 
-	return Cleanup(function()
+	return function()
 		connection:Disconnect()
-	end)
+	end
 end
 
 local function use(n: number)
@@ -50,7 +49,7 @@ local function udim(xScale: number, xOffset: number)
 end
 
 return {
-	RemConnector = RemConnector,
+	useRem = useRem,
 	use = use,
 	units = units,
 	udim2 = udim2,

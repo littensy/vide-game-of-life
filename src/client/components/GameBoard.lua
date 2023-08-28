@@ -4,11 +4,13 @@ local vide = require(ReplicatedStorage.modules.vide)
 local logic = require(ReplicatedStorage.client.logic)
 local rem = require(ReplicatedStorage.client.composables.rem)
 
+type Props = {
+	state: vide.Source<logic.BoardState>,
+}
+
 local CELL_SIZE = 0.5
 
-local function GameBoard(props: {
-	state: vide.Source<logic.BoardState>,
-})
+local function GameBoard(props: Props)
 	-- By converting the state to a list of cells, we can bind frames
 	-- to numeric indices instead of Vector3s. This is more efficient
 	-- because frames will often be re-used instead of destroyed and
@@ -32,6 +34,7 @@ local function GameBoard(props: {
 		return vide.create "Frame" {
 			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 			BorderSizePixel = 0,
+
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Size = rem.udim2(0, CELL_SIZE, 0, CELL_SIZE),
 			Position = position,

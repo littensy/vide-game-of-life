@@ -12,6 +12,7 @@ local function App(): { any }
 			Name = "App",
 			ResetOnSpawn = false,
 			IgnoreGuiInset = true,
+
 			Game(),
 		},
 	}

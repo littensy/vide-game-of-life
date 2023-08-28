@@ -2,7 +2,7 @@ local types = require(script.Parent.types)
 
 local RANGE = 32
 
-local function generate(): types.BoardState
+local function shuffle(): types.BoardState
 	local state = {}
 
 	for x = -RANGE, RANGE do
@@ -14,4 +14,4 @@ local function generate(): types.BoardState
 	return state
 end
 
-return generate
+return shuffle

@@ -4,35 +4,33 @@ local vide = require(ReplicatedStorage.modules.vide)
 local rem = require(ReplicatedStorage.client.composables.rem)
 local fonts = require(ReplicatedStorage.client.utils.fonts)
 local palette = require(ReplicatedStorage.client.utils.palette)
-local resolve = require(ReplicatedStorage.client.utils.resolve)
 
-local function Button(props: {
-	font: Font?,
-	text: resolve.Resolvable<string>?,
-	textColor: resolve.Resolvable<Color3>?,
-	textSize: resolve.Resolvable<number>?,
-	backgroundColor: resolve.Resolvable<Color3>?,
-	size: resolve.Resolvable<UDim2>?,
-	position: resolve.Resolvable<UDim2>?,
-	anchorPoint: Vector2?,
+type Props = {
 	onClick: () -> (),
-})
+
+	font: Font?,
+	text: string | vide.Source<string>?,
+	textSize: number | vide.Source<number>?,
+	textColor: Color3 | vide.Source<Color3>?,
+	backgroundColor: Color3 | vide.Source<Color3>?,
+
+	anchorPoint: Vector2 | vide.Source<Vector2>?,
+	size: UDim2 | vide.Source<UDim2>?,
+	position: UDim2 | vide.Source<UDim2>?,
+}
+
+local function Button(props: Props)
 	local hovered = vide.source(false)
 	local pressed = vide.source(false)
 
-	local highlightTransparency = vide.spring(function()
-		local hover = hovered()
-		local press = pressed()
-		return if press then 1 elseif hover then 0.85 else 1
-	end, 0.2)
-
-	local buttonOffset = vide.spring(function()
-		return if pressed() then UDim2.new(0, 0, 0, rem.use(0.5)) else UDim2.new()
+	local offset = vide.spring(function()
+		return if pressed() then UDim2.new(0, 0, 0, rem.use(0.4)) else UDim2.new()
 	end, 0.2)
 
 	return vide.create "TextButton" {
 		Text = "",
 		BackgroundTransparency = 1,
+
 		AnchorPoint = props.anchorPoint,
 		Size = props.size,
 		Position = props.position,
@@ -58,14 +56,17 @@ local function Button(props: {
 
 		vide.create "TextLabel" {
 			Name = "Body",
-			FontFace = props.font or fonts.inter.medium,
+
 			Text = props.text,
-			TextColor3 = props.textColor or palette.white,
 			TextSize = props.textSize or rem.units(1),
+			TextColor3 = props.textColor or palette.white,
+			FontFace = props.font or fonts.inter.medium,
+
 			BackgroundColor3 = props.backgroundColor or palette.blue,
 			BorderSizePixel = 0,
+
 			Size = UDim2.new(1, 0, 1, 0),
-			Position = buttonOffset,
+			Position = offset,
 
 			vide.create "UICorner" {
 				CornerRadius = rem.udim(0, 0.5),
@@ -74,11 +75,17 @@ local function Button(props: {
 
 		vide.create "Frame" {
 			Name = "Highlight",
+
 			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-			BackgroundTransparency = highlightTransparency,
+			BackgroundTransparency = vide.spring(function()
+				local hover = hovered()
+				local press = pressed()
+				return if hover and not press then 0.85 else 1
+			end, 0.2),
 			BorderSizePixel = 0,
+
 			Size = UDim2.new(1, 0, 1, 0),
-			Position = buttonOffset,
+			Position = offset,
 
 			vide.create "UICorner" {
 				CornerRadius = rem.udim(0, 0.5),
