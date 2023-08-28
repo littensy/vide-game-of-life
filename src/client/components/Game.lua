@@ -30,7 +30,9 @@ local function Game(): { any }
 			end,
 		},
 
-		Cleanup(disconnect),
+		Cleanup {
+			disconnect,
+		},
 	}
 end
 

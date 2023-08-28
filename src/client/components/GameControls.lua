@@ -5,12 +5,12 @@ local rem = require(ReplicatedStorage.client.composables.rem)
 local palette = require(ReplicatedStorage.client.utils.palette)
 local Button = require(script.Parent.Button)
 
-type Props = {
+type GameControlsProps = {
 	onPause: vide.Source<boolean>,
 	onShuffle: () -> (),
 }
 
-local function GameControls(props: Props)
+local function GameControls(props: GameControlsProps)
 	return vide.create "Frame" {
 		Position = rem.udim2(0.5, 0, 1, -4),
 		ZIndex = 2,

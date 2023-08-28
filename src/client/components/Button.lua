@@ -5,7 +5,7 @@ local rem = require(ReplicatedStorage.client.composables.rem)
 local fonts = require(ReplicatedStorage.client.utils.fonts)
 local palette = require(ReplicatedStorage.client.utils.palette)
 
-type Props = {
+type ButtonProps = {
 	onClick: () -> (),
 
 	font: Font?,
@@ -19,7 +19,7 @@ type Props = {
 	position: UDim2 | vide.Source<UDim2>?,
 }
 
-local function Button(props: Props)
+local function Button(props: ButtonProps)
 	local hovered = vide.source(false)
 	local pressed = vide.source(false)
 
