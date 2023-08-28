@@ -19,15 +19,17 @@ return function(target: Instance)
 		end),
 
 		Button {
-			text = function()
-				return if condition() then "On" else "Off"
-			end,
-			anchorPoint = Vector2.new(0.5, 0.5),
-			size = UDim2.new(0, 100, 0, 50),
-			position = UDim2.new(0.5, 0, 0.5, 0),
 			onClick = function()
 				condition(not condition())
 			end,
+
+			text = function()
+				return if condition() then "On" else "Off"
+			end,
+
+			anchorPoint = Vector2.new(0.5, 0.5),
+			size = UDim2.new(0, 100, 0, 50),
+			position = UDim2.new(0.5, 0, 0.5, 0),
 		},
 	}
 end

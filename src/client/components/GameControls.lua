@@ -3,6 +3,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local vide = require(ReplicatedStorage.modules.vide)
 local rem = require(ReplicatedStorage.client.composables.rem)
 local palette = require(ReplicatedStorage.client.utils.palette)
+
 local Button = require(script.Parent.Button)
 
 type GameControlsProps = {

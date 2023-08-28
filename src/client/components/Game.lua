@@ -10,7 +10,7 @@ local GameControls = require(script.Parent.GameControls)
 
 local function Game(): { any }
 	local state = vide.source(logic.presets.fireship)
-	local paused = vide.source(false)
+	local paused = vide.source(true)
 
 	local disconnect = setInterval(function()
 		if not paused() then

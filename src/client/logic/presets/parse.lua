@@ -1,40 +1,39 @@
 local types = require(script.Parent.Parent.types)
 
-local function align(state: types.BoardState): types.BoardState
-	local nextState = {}
-	local bounds = Vector3.new()
-	local offset = Vector3.new()
-
-	for position in state do
-		bounds = Vector3.new(math.max(bounds.X, position.X), math.max(bounds.Y, position.Y), 0)
-		offset = Vector3.new(math.floor(bounds.X / 2), math.floor(bounds.Y / 2), 0)
-	end
-
-	for position in state do
-		nextState[position - offset] = true
-	end
-
-	return nextState
-end
+local CHARACTER = "x"
 
 local function parse(grid: string): types.BoardState
-	local state = {}
+	local cells: types.BoardState = {}
+	local output: types.BoardState = {}
+
 	local cursor = Vector3.new()
+	local min = Vector3.new()
+	local max = Vector3.new()
 
-	for character in string.gmatch(grid, ".") do
-		if character == "\n" then
-			cursor = Vector3.new(0, cursor.Y + 1, 0)
-			continue
+	for line in string.gmatch(grid, ".-\n") do
+		for character in string.gmatch(line, ".") do
+			if character == CHARACTER then
+				cells[cursor] = true
+			end
+
+			cursor += Vector3.new(1, 0, 0)
+
+			if character == CHARACTER then
+				min = Vector3.new(math.min(min.X, cursor.X), math.min(min.Y, cursor.Y), 0)
+				max = Vector3.new(math.max(max.X, cursor.X), math.max(max.Y, cursor.Y), 0)
+			end
 		end
 
-		if character ~= " " then
-			state[cursor] = true
-		end
-
-		cursor += Vector3.new(1, 0, 0)
+		cursor = Vector3.new(0, cursor.Y + 1, 0)
 	end
 
-	return align(state)
+	local offset = Vector3.new(math.floor((max.X - min.X) / 2), math.floor((max.Y - min.Y) / 2), 0)
+
+	for cell in cells do
+		output[cell - offset] = true
+	end
+
+	return output
 end
 
 return parse
