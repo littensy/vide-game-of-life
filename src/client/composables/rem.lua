@@ -1,7 +1,7 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local vide = require(ReplicatedStorage.modules.vide)
-local Cleanup = require(ReplicatedStorage.client.components.Cleanup)
+local Cleanup = require(ReplicatedStorage.client.control.Cleanup)
 
 local BASE_REM = 16
 local BASE_HEIGHT = 680

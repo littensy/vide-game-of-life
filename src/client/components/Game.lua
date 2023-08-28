@@ -4,8 +4,8 @@ local vide = require(ReplicatedStorage.modules.vide)
 local setInterval = require(ReplicatedStorage.shared.setInterval)
 local logic = require(ReplicatedStorage.client.logic)
 local presets = require(ReplicatedStorage.client.presets)
+local Cleanup = require(ReplicatedStorage.client.control.Cleanup)
 
-local Cleanup = require(script.Parent.Cleanup)
 local GameBoard = require(script.Parent.GameBoard)
 local GameControls = require(script.Parent.GameControls)
 
