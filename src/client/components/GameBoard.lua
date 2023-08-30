@@ -1,6 +1,10 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local vide = require(ReplicatedStorage.modules.vide)
+local create = vide.create
+local derive = vide.derive
+local indexes = vide.indexes
+
 local logic = require(ReplicatedStorage.client.logic)
 local rem = require(ReplicatedStorage.client.composables.rem)
 
@@ -15,7 +19,7 @@ local function GameBoard(props: GameBoardProps)
 	-- to numeric indices instead of Vector3s. This is more efficient
 	-- because frames will often be re-used instead of destroyed and
 	-- recreated for cells that have moved.
-	local cells = vide.derive(function()
+	local cells = derive(function()
 		local list = {}
 
 		for cell in props.state() do
@@ -25,13 +29,13 @@ local function GameBoard(props: GameBoardProps)
 		return list
 	end)
 
-	return vide.indexes(cells, function(value)
+	return indexes(cells, function(value)
 		local function position()
 			local cell = value()
 			return UDim2.new(0.5, rem.use(cell.X * CELL_SIZE), 0.5, rem.use(cell.Y * CELL_SIZE))
 		end
 
-		return vide.create "Frame" {
+		return create "Frame" {
 			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 			BorderSizePixel = 0,
 

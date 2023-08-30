@@ -1,6 +1,8 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local vide = require(ReplicatedStorage.modules.vide)
+local source = vide.source
+
 local setInterval = require(ReplicatedStorage.shared.setInterval)
 local logic = require(ReplicatedStorage.client.logic)
 local Cleanup = require(ReplicatedStorage.client.control.Cleanup)
@@ -9,8 +11,8 @@ local GameBoard = require(script.Parent.GameBoard)
 local GameControls = require(script.Parent.GameControls)
 
 local function Game(): { any }
-	local state = vide.source(logic.presets.fireship)
-	local paused = vide.source(true)
+	local state = source(logic.presets.fireship)
+	local paused = source(true)
 
 	local disconnect = setInterval(function()
 		if not paused() then
@@ -18,16 +20,23 @@ local function Game(): { any }
 		end
 	end, 1 / 30)
 
+	local function pause()
+		paused(not paused())
+	end
+
+	local function shuffle()
+		state(logic.shuffle())
+	end
+
 	return {
 		GameBoard {
 			state = state,
 		},
 
 		GameControls {
-			onPause = paused,
-			onShuffle = function()
-				state(logic.shuffle())
-			end,
+			onPause = pause,
+			onShuffle = shuffle,
+			paused = paused,
 		},
 
 		Cleanup {

@@ -1,18 +1,19 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local vide = require(ReplicatedStorage.modules.vide)
+local source = vide.source
 
 local BASE_REM = 16
 local BASE_HEIGHT = 680
 
-local rem = vide.source(BASE_REM)
+local rem = source(BASE_REM)
 
 local function useRem()
 	local camera = workspace.CurrentCamera
 
 	local function update()
-		local proportional = camera.ViewportSize.Y / BASE_HEIGHT * BASE_REM
-		rem(math.round(proportional / 2) * 2)
+		local value = camera.ViewportSize.Y / BASE_HEIGHT * BASE_REM
+		rem(math.round(value / 2) * 2)
 	end
 
 	local connection = camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()

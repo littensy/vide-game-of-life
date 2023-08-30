@@ -2,9 +2,9 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local vide = require(ReplicatedStorage.modules.vide)
 
-type Resolvable<T> = T | vide.Source<T>
+type MaybeSource<T> = T | vide.Source<T>
 
-local function resolve<T>(value: Resolvable<T>): T
+local function unwrap<T>(value: MaybeSource<T>): T
 	if type(value) == "function" then
 		return value()
 	else
@@ -12,4 +12,4 @@ local function resolve<T>(value: Resolvable<T>): T
 	end
 end
 
-return resolve
+return unwrap

@@ -1,11 +1,14 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local vide = require(ReplicatedStorage.modules.vide)
+local create = vide.create
+local source = vide.source
+
 local Show = require(ReplicatedStorage.client.control.Show)
 local Button = require(ReplicatedStorage.client.components.Button)
 
 local function On()
-	return vide.create "Frame" {
+	return create "Frame" {
 		BackgroundColor3 = Color3.fromRGB(34, 164, 106),
 		Size = UDim2.new(0, 100, 0, 100),
 		Destroying = function()
@@ -15,7 +18,7 @@ local function On()
 end
 
 local function Off()
-	return vide.create "Frame" {
+	return create "Frame" {
 		BackgroundColor3 = Color3.fromRGB(203, 74, 74),
 		Size = UDim2.new(0, 100, 0, 100),
 		Position = UDim2.new(0, 100, 0, 0),
@@ -26,9 +29,11 @@ local function Off()
 end
 
 return function(target: Instance)
-	local condition = vide.source(false)
+	local condition = source(false)
 
-	vide.apply(target) {
+	local container = create "Folder" {
+		Parent = target,
+
 		Show {
 			when = condition,
 			component = On,
@@ -49,4 +54,8 @@ return function(target: Instance)
 			position = UDim2.new(0.5, 0, 0.5, 0),
 		},
 	}
+
+	return function()
+		container:Destroy()
+	end
 end

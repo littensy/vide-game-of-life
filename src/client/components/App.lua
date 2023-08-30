@@ -1,11 +1,13 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local vide = require(ReplicatedStorage.modules.vide)
+local create = vide.create
+
 local Game = require(script.Parent.Game)
 
 local function App(): { any }
 	return {
-		vide.create "ScreenGui" {
+		create "ScreenGui" {
 			Name = "App",
 			ResetOnSpawn = false,
 			IgnoreGuiInset = true,

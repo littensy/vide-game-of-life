@@ -1,12 +1,20 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local vide = require(ReplicatedStorage.modules.vide)
-local Dynamic = require(ReplicatedStorage.client.control.Dynamic)
+local create = vide.create
+local source = vide.source
+
 local Button = require(ReplicatedStorage.client.components.Button)
+local Dynamic = require(ReplicatedStorage.client.control.Dynamic)
 local palette = require(ReplicatedStorage.client.utils.palette)
 
+type StoryProps = {
+	text: vide.Source<string>,
+	onClick: () -> (),
+}
+
 local components = {
-	function(props: { text: vide.Source<string>, onClick: () -> () })
+	function(props: StoryProps)
 		return Button {
 			onClick = props.onClick,
 			text = props.text,
@@ -14,7 +22,7 @@ local components = {
 			backgroundColor = palette.red,
 		}
 	end,
-	function(props: { text: vide.Source<string>, onClick: () -> () })
+	function(props: StoryProps)
 		return Button {
 			onClick = props.onClick,
 			text = props.text,
@@ -22,7 +30,7 @@ local components = {
 			backgroundColor = palette.green,
 		}
 	end,
-	function(props: { text: vide.Source<string>, onClick: () -> () })
+	function(props: StoryProps)
 		return Button {
 			onClick = props.onClick,
 			text = props.text,
@@ -33,21 +41,29 @@ local components = {
 }
 
 return function(target: Instance)
-	local cycle = vide.source(0)
+	local cycle = source(0)
 
 	local function forward()
 		cycle((cycle() + 1) % 3)
 	end
 
-	vide.apply(target) {
+	local container = create "Folder" {
+		Parent = target,
+
 		Dynamic {
 			component = function()
 				return components[cycle() + 1]
 			end,
+
 			text = function()
 				return ({ "Red", "Green", "Blue" })[cycle() + 1]
 			end,
+
 			onClick = forward,
 		},
 	}
+
+	return function()
+		container:Destroy()
+	end
 end
