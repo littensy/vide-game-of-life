@@ -1,11 +1,11 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local match = require(script.Parent.match)
+local dynamic = require(script.Parent.dynamic)
 local vide = require(ReplicatedStorage.modules.vide)
 
 type ShowComponents = {
-	show: () -> any,
-	hide: () -> any,
+	show: () -> (),
+	hide: () -> (),
 }
 
 local function show(condition: vide.Source<boolean>)
@@ -14,10 +14,10 @@ local function show(condition: vide.Source<boolean>)
 	end
 
 	return function(components: ShowComponents)
-		return match(truthy) {
-			[true] = components.show,
-			[false] = components.hide,
-		}
+		return dynamic(truthy, function(value)
+			local component: () -> () = if value then components.show else components.hide
+			return component and component()
+		end)
 	end
 end
 

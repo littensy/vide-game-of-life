@@ -2,7 +2,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local vide = require(ReplicatedStorage.modules.vide)
 
-local function dynamic<T>(source: vide.Source<T>, render: (value: T) -> any)
+local function dynamic<T>(source: vide.Source<T>, render: (value: T) -> ())
 	local children = vide.source(nil :: any)
 
 	vide.watch(function()
