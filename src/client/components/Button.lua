@@ -1,11 +1,9 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local vide = require(ReplicatedStorage.modules.vide)
-local create = vide.create
-local spring = vide.spring
-
 local rem = require(ReplicatedStorage.client.composables.rem)
 local useButton = require(ReplicatedStorage.client.composables.useButton)
+local cleanup = require(ReplicatedStorage.client.control.cleanup)
 local color = require(ReplicatedStorage.client.utils.color)
 local fonts = require(ReplicatedStorage.client.utils.fonts)
 local palette = require(ReplicatedStorage.client.utils.palette)
@@ -26,7 +24,7 @@ type ButtonProps = useButton.Events & {
 local function Button(props: ButtonProps)
 	local hovered, pressed, buttonEvents = useButton(props)
 
-	local backgroundColor = spring(function()
+	local backgroundColor = vide.spring(function()
 		local hover = hovered()
 		local press = pressed()
 
@@ -36,11 +34,11 @@ local function Button(props: ButtonProps)
 		)
 	end, 0.2)
 
-	local bodyPosition = spring(function()
+	local bodyPosition = vide.spring(function()
 		return if pressed() then UDim2.new(0, 0, 0, rem.use(0.4)) else UDim2.new()
 	end, 0.2)
 
-	return create "TextButton" {
+	return vide.create "TextButton" {
 		Text = "",
 		BackgroundTransparency = 1,
 
@@ -50,7 +48,7 @@ local function Button(props: ButtonProps)
 
 		buttonEvents,
 
-		create "Frame" {
+		vide.create "Frame" {
 			Name = "Body",
 
 			BackgroundColor3 = backgroundColor,
@@ -59,11 +57,11 @@ local function Button(props: ButtonProps)
 			Size = UDim2.new(1, 0, 1, 0),
 			Position = bodyPosition,
 
-			create "UICorner" {
+			vide.create "UICorner" {
 				CornerRadius = rem.udim(0, 0.5),
 			},
 
-			create "TextLabel" {
+			vide.create "TextLabel" {
 				Name = "Text",
 				Text = props.text,
 				TextSize = props.textSize or rem.units(1),

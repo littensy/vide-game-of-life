@@ -1,12 +1,11 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local vide = require(ReplicatedStorage.modules.vide)
-local source = vide.source
 
 local BASE_REM = 16
 local BASE_HEIGHT = 680
 
-local rem = source(BASE_REM)
+local rem = vide.source(BASE_REM)
 
 local function useRem()
 	local camera = workspace.CurrentCamera

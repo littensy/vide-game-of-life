@@ -1,7 +1,6 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local vide = require(ReplicatedStorage.modules.vide)
-local source = vide.source
 
 export type Events = {
 	onClick: (() -> ())?,
@@ -12,8 +11,8 @@ export type Events = {
 }
 
 local function useButton(events: Events?)
-	local hovered = source(false)
-	local pressed = source(false)
+	local hovered = vide.source(false)
+	local pressed = vide.source(false)
 
 	local instanceEvents = {
 		Activated = function()

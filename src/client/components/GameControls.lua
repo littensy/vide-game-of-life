@@ -1,8 +1,6 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local vide = require(ReplicatedStorage.modules.vide)
-local create = vide.create
-
 local rem = require(ReplicatedStorage.client.composables.rem)
 local palette = require(ReplicatedStorage.client.utils.palette)
 
@@ -23,11 +21,11 @@ local function GameControls(props: GameControlsProps)
 		return if props.paused() then palette.yellow else palette.green
 	end
 
-	return create "Frame" {
+	return vide.create "Frame" {
 		Position = rem.udim2(0.5, 0, 1, -4),
 		ZIndex = 2,
 
-		create "UIListLayout" {
+		vide.create "UIListLayout" {
 			FillDirection = Enum.FillDirection.Horizontal,
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			VerticalAlignment = Enum.VerticalAlignment.Center,

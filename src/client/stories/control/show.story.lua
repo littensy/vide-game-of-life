@@ -1,43 +1,39 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local vide = require(ReplicatedStorage.modules.vide)
-local create = vide.create
-local source = vide.source
-
-local Show = require(ReplicatedStorage.client.control.Show)
 local Button = require(ReplicatedStorage.client.components.Button)
+local cleanup = require(ReplicatedStorage.client.control.cleanup)
+local show = require(ReplicatedStorage.client.control.show)
+local unmount = require(ReplicatedStorage.client.control.unmount)
+local vide = require(ReplicatedStorage.modules.vide)
 
 local function On()
-	return create "Frame" {
+	return vide.create "Frame" {
 		BackgroundColor3 = Color3.fromRGB(34, 164, 106),
 		Size = UDim2.new(0, 100, 0, 100),
-		Destroying = function()
+		cleanup(function()
 			print("on -> off")
-		end,
+		end),
 	}
 end
 
 local function Off()
-	return create "Frame" {
+	return vide.create "Frame" {
 		BackgroundColor3 = Color3.fromRGB(203, 74, 74),
 		Size = UDim2.new(0, 100, 0, 100),
 		Position = UDim2.new(0, 100, 0, 0),
-		Destroying = function()
+		cleanup(function()
 			print("off -> on")
-		end,
+		end),
 	}
 end
 
 return function(target: Instance)
-	local condition = source(false)
+	local condition = vide.source(false)
 
-	local container = create "Folder" {
-		Parent = target,
-
-		Show {
-			when = condition,
-			component = On,
-			fallback = Off,
+	local children: { any } = {
+		show(condition) {
+			show = On,
+			hide = Off,
 		},
 
 		Button {
@@ -55,7 +51,9 @@ return function(target: Instance)
 		},
 	}
 
+	vide.apply(target)(children)
+
 	return function()
-		container:Destroy()
+		unmount(children)
 	end
 end

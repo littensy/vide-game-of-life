@@ -1,21 +1,29 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local vide = require(ReplicatedStorage.modules.vide)
-local create = vide.create
+local action = vide.action
 
-type CleanupProps = {
+type CleanupProps = () -> () | {
 	[any]: () -> (),
 }
 
-local function Cleanup(props: CleanupProps)
-	return create "Folder" {
-		Name = "Cleanup",
-		Destroying = function()
+local function cleanup(props: CleanupProps)
+	return action(function(instance)
+		instance.AncestryChanged:Connect(function(_, parent)
+			if parent then
+				return
+			end
+
+			if type(props) == "function" then
+				props()
+				return
+			end
+
 			for _, callback in props do
 				callback()
 			end
-		end,
-	}
+		end)
+	end)
 end
 
-return Cleanup
+return cleanup

@@ -1,20 +1,24 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
+local match = require(script.Parent.match)
 local vide = require(ReplicatedStorage.modules.vide)
-local Dynamic = require(script.Parent.Dynamic)
 
-type ShowProps = {
-	when: vide.Source<unknown>,
-	component: () -> any,
-	fallback: (() -> any)?,
+type ShowComponents = {
+	show: () -> any,
+	hide: () -> any,
 }
 
-local function Show(props: ShowProps)
-	return Dynamic {
-		component = function()
-			return if props.when() then props.component else props.fallback
-		end,
-	}
+local function show(condition: vide.Source<boolean>)
+	local function truthy()
+		return not not condition()
+	end
+
+	return function(components: ShowComponents)
+		return match(truthy) {
+			[true] = components.show,
+			[false] = components.hide,
+		}
+	end
 end
 
-return Show
+return show

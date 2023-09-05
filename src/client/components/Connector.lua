@@ -1,10 +1,10 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local rem = require(ReplicatedStorage.client.composables.rem)
-local Cleanup = require(ReplicatedStorage.client.control.Cleanup)
+local cleanup = require(ReplicatedStorage.client.control.cleanup)
 
 local function Connector()
-	return Cleanup {
+	return cleanup {
 		rem.useRem(),
 	}
 end
