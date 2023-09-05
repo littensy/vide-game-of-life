@@ -4,8 +4,8 @@ local dynamic = require(script.Parent.dynamic)
 local vide = require(ReplicatedStorage.modules.vide)
 
 type ShowComponents = {
-	show: () -> (),
-	hide: () -> (),
+	show: (() -> ())?,
+	hide: (() -> ())?,
 }
 
 local function show(condition: vide.Source<boolean>)
@@ -15,7 +15,7 @@ local function show(condition: vide.Source<boolean>)
 
 	return function(components: ShowComponents)
 		return dynamic(truthy, function(value)
-			local component: () -> () = if value then components.show else components.hide
+			local component: (() -> ())? = if value then components.show else components.hide
 			return component and component()
 		end)
 	end
